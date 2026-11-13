@@ -8,6 +8,8 @@ from typing import Any
 from heo.model.configuration import selected_central_devices_from_input
 from heo.topology.definitions import CENTRAL_SLOT_KEYS, normalize_slot_order
 
+DEFAULT_OPTIMIZATION_FOCUS = "economic"
+
 
 # Legt den leeren Bedienzustand für den Konfigurator an.
 def default_configurator_state() -> dict[str, Any]:
@@ -25,7 +27,7 @@ def default_configurator_state() -> dict[str, Any]:
         "had_results": False,
         "results_stale": False,
         "simulation_mode": None,
-        "optimization_focus": "comparison",
+        "optimization_focus": DEFAULT_OPTIMIZATION_FOCUS,
         "profile_seed_mode": "fixed",
         "profile_seed": 20261013,
         "field_owners": {},

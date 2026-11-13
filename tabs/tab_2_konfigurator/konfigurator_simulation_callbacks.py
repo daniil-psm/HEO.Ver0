@@ -32,7 +32,7 @@ from dg_adapter.input.validation import (
 from dg_adapter.input.parameter_catalog import DEFAULT_HEO_INPUT_STATE
 from heo.model.buildings import building_state
 from dg_adapter.input.parameter_catalog import fields_for_section
-from .konfigurator_config import resolved_configurator_state
+from .konfigurator_config import DEFAULT_OPTIMIZATION_FOCUS, resolved_configurator_state
 
 STOPPED_NOTICE_SECONDS = 5.0
 
@@ -180,7 +180,7 @@ def remember_optimization_focus(focus, config_state):
     if focus not in {"economic", "ecological", "comparison"}:
         return dash.no_update
     state = resolved_configurator_state(config_state)
-    if state.get("optimization_focus", "comparison") == focus:
+    if state.get("optimization_focus", DEFAULT_OPTIMIZATION_FOCUS) == focus:
         return dash.no_update
     state["optimization_focus"] = focus
     return state
@@ -419,7 +419,8 @@ def simulation_action(_sim_clicks, settings_mode, start_clicks, _interval, heo, 
     trigger = dash.ctx.triggered_id
     state = resolved_configurator_state(config_state)
     simulation = simulation_state or {}
-    focus = focus if focus in {"economic", "ecological", "comparison"} else state.get("optimization_focus", "comparison")
+    if focus not in {"economic", "ecological", "comparison"}:
+        focus = state.get("optimization_focus", DEFAULT_OPTIMIZATION_FOCUS)
     objectives = ("economic", "ecological") if focus == "comparison" else (focus,)
 
     if trigger == "konfig-simulation-interval":

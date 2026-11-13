@@ -19,8 +19,9 @@ from ui.components.sidebar import (
 )
 from ui.components.topology_scene import topology_documentation_page
 
-from .konfigurator_projektformular import project_form, scenario_load_form
+from .konfigurator_config import DEFAULT_OPTIMIZATION_FOCUS
 from .konfigurator_icons import sidebar_icon_content
+from .konfigurator_projektformular import project_form, scenario_load_form
 from .optimierungsablauf import (
     OPTIMIZATION_PROCESS_INFO_ENABLED,
     OPTIMIZATION_PROCESS_INTRODUCTION,
@@ -84,7 +85,9 @@ def info_document_kind(state, simulation, choice_hidden: bool) -> str:
     single_run = (
         len(requested) == 1
         if isinstance(requested, (list, tuple)) and requested
-        else (state or {}).get("optimization_focus") in {"economic", "ecological"}
+        else (state or {}).get(
+            "optimization_focus", DEFAULT_OPTIMIZATION_FOCUS,
+        ) in {"economic", "ecological"}
     )
     return "optimization-single" if single_run else "optimization-comparison"
 
@@ -266,6 +269,7 @@ def _sidebar(
 
 # Baut das Formular für Optimierungsfokus, Einstellungen und Startaktion.
 def _optimization_form(state, settings_mode, choice_hidden, settings) -> html.Div:
+    focus = (state or {}).get("optimization_focus", DEFAULT_OPTIMIZATION_FOCUS)
     return html.Div(
         id="konfig-simulation-choice",
         className="konfig-simulation-choice",
@@ -282,7 +286,7 @@ def _optimization_form(state, settings_mode, choice_hidden, settings) -> html.Di
                 form_value_field(
                     FieldPresentation(
                         label="Optimierungsfokus",
-                        value=str((state or {}).get("optimization_focus", "comparison")),
+                        value=str(focus),
                         editable=True,
                         kind="choice",
                     ),
@@ -293,7 +297,7 @@ def _optimization_form(state, settings_mode, choice_hidden, settings) -> html.Di
                             {"label": "Ökologisch", "value": "ecological"},
                             {"label": "Vergleich", "value": "comparison"},
                         ],
-                        value=(state or {}).get("optimization_focus", "comparison"),
+                        value=focus,
                         className="konfig-focus-choice",
                     ),
                     class_name="konfig-field konfig-optimization-form-field",
@@ -373,7 +377,9 @@ def create_configurator_dashboard(
         if process_back else (
             len(requested_objectives) == 1
             if isinstance(requested_objectives, (list, tuple)) and requested_objectives
-            else (state or {}).get("optimization_focus") in {"economic", "ecological"}
+            else (state or {}).get(
+                "optimization_focus", DEFAULT_OPTIMIZATION_FOCUS,
+            ) in {"economic", "ecological"}
         )
     )
     settings_mode = (state or {}).get("simulation_mode")

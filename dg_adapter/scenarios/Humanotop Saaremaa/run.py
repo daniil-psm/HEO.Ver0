@@ -60,7 +60,7 @@ def run_comparison():
         SCENARIO_NAME,
         scenario_dir=SCENARIO_DIR,
         objectives=tuple(
-            os.environ.get("HEO_OPTIMIZATION_OBJECTIVES", "economic,ecological").split(",")
+            os.environ.get("HEO_OPTIMIZATION_OBJECTIVES", "economic").split(",")
         ),
     )
 

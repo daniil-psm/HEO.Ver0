@@ -28,7 +28,7 @@ class _RunningSimulation:
     process: subprocess.Popen
     log_path: Path
     started_at: datetime
-    objectives: tuple[str, ...] = ("economic", "ecological")
+    objectives: tuple[str, ...] = ("economic",)
     started_tick: float | None = None
     log_entries: list[dict[str, Any]] = field(default_factory=list)
     log_entries_lock: threading.Lock = field(default_factory=threading.Lock)
@@ -111,7 +111,7 @@ def _dg_python_path() -> Path:
 def start_scenario_simulation(
     scenario_name: Any,
     *,
-    objectives: tuple[str, ...] = ("economic", "ecological"),
+    objectives: tuple[str, ...] = ("economic",),
 ) -> dict[str, Any]:
 
     name = validate_scenario_name(scenario_name)
