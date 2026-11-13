@@ -1,0 +1,49 @@
+/* Zentrale Rasterdarstellung für Topologien sowie Dialog-/Formularfelder. */
+:root {
+    --heo-grid-main: rgba(0, 0, 0, .88);
+    --heo-grid-main-soft: rgba(0, 0, 0, .76);
+    --heo-grid-main-strong: rgba(0, 0, 0, .82);
+    --heo-grid-accent: rgba(235, 55, 155, .78);
+    --heo-grid-accent-soft: rgba(190, 31, 112, .72);
+    --heo-grid-accent-strong: rgba(190, 31, 112, .82);
+}
+
+.topology-grid-overlay {
+    border: 1px solid var(--heo-grid-main-soft);
+}
+
+.topology-grid-line.is-main {
+    background: var(--heo-grid-main);
+}
+
+.topology-grid-line.is-intermediate {
+    background: var(--heo-grid-accent);
+}
+
+/* Das Grundraster liegt als nicht-interaktive Ebene über den Feldern.
+   Keine Zell-/Kachelrahmen: Der Schalter beeinflusst niemals die Geometrie. */
+.konfig-form-grid {
+    position: relative;
+}
+
+.konfig-form-grid::after {
+    content: "";
+    position: absolute;
+    z-index: 5;
+    pointer-events: none;
+    left: var(--heo-dev-grid-left, 0px);
+    top: var(--heo-dev-grid-top, 0px);
+    width: var(--heo-dev-grid-width, 0px);
+    height: var(--heo-dev-grid-height, 0px);
+    background-image: var(--heo-dev-grid-columns, none), var(--heo-dev-grid-rows, none);
+    background-repeat: no-repeat;
+}
+
+html.heo-grid-lines-hidden .topology-grid-overlay {
+    opacity: 0 !important;
+    visibility: hidden !important;
+}
+
+html.heo-grid-lines-hidden .konfig-form-grid::after {
+    display: none;
+}

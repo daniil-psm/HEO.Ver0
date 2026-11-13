@@ -1,0 +1,59 @@
+/* Vollständige Main Panels über der ruhenden oder gedrehten Konfiguratorfläche. */
+.glass-panel.main-panel-info-overlay {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: auto;
+    color: var(--heo-text);
+    overflow: visible;
+}
+
+.main-panel-info-overlay[hidden] {
+    display: none;
+}
+
+.main-panel-info-scroll {
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    overflow: auto;
+    overscroll-behavior: contain;
+}
+
+.main-panel-info-header {
+    min-height: 40px;
+    margin-bottom: 24px;
+}
+
+.main-panel-info-title {
+    margin: 0;
+    color: var(--heo-text);
+    font-size: clamp(24px, 2.4vw, 36px);
+    font-weight: 650;
+    line-height: 1.15;
+}
+
+.main-panel-info-introduction {
+    max-width: 1100px;
+    margin: 8px 0 0;
+    color: rgba(var(--heo-text-rgb), .82);
+    font-size: clamp(14px, 1.1vw, 17px);
+    line-height: 1.5;
+}
+
+.main-panel-info-body {
+    min-width: 0;
+}
+
+/* Die komplette Flip-Ebene bleibt im DOM und behält ihren Zustand, wird aber
+   weder gezeichnet noch bedient, solange ein Info-Panel sichtbar ist. */
+.dashboard-info-flip:is(:has(.konfig-all-parameters), :has(.konfig-process-overlay:not([hidden])))
+    > .dashboard-info-flip-inner {
+    display: none;
+}
+
+.dashboard-info-flip:is(:has(.konfig-all-parameters), :has(.konfig-process-overlay:not([hidden])))
+    > .dashboard-info-overlay-layer > [data-dashboard-info-toggle] {
+    display: none;
+}

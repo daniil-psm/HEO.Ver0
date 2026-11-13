@@ -1,0 +1,301 @@
+/* Unauffälliger Hover-Einstieg im rechten/b unteren Dashboard-Gutter. */
+.dev-tools-dock {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    z-index: 90;
+    width: 56px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: auto;
+}
+
+.dev-tools-nav-button,
+.dev-tools-button {
+    appearance: none;
+    -webkit-appearance: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    color: rgba(var(--heo-text-rgb, 230, 235, 230), .72);
+    border: 1px solid rgba(var(--heo-border-rgb, 230, 235, 230), .30);
+    background: rgba(var(--heo-surface-rgb, 18, 34, 28), .68);
+    backdrop-filter: blur(9px);
+    -webkit-backdrop-filter: blur(9px);
+    box-shadow: 0 9px 24px rgba(0, 0, 0, .24);
+    cursor: pointer;
+    transition: opacity .18s ease, visibility .18s ease,
+        transform .22s ease, color .18s ease, border-color .18s ease,
+        background-color .18s ease, box-shadow .18s ease;
+}
+
+.dev-tools-nav-button {
+    width: 40px;
+    height: 30px;
+    border-radius: 16px 16px 10px 10px;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(7px);
+}
+
+.dev-tools-dock:hover .dev-tools-nav-button,
+.dev-tools-dock:focus-within .dev-tools-nav-button,
+.dev-tools-dock.is-open .dev-tools-nav-button {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+.dev-tools-nav-button:hover,
+.dev-tools-nav-button:focus-visible,
+.dev-tools-button:hover,
+.dev-tools-button:focus-visible {
+    color: rgba(var(--heo-text-rgb, 255, 255, 255), .94);
+    border-color: rgba(112, 207, 140, .9);
+    background: rgba(38, 115, 70, .78);
+    box-shadow: 0 0 0 3px rgba(95, 180, 115, .15),
+        0 10px 26px rgba(0, 0, 0, .30);
+    outline: none;
+}
+
+.dev-tools-nav-chevron {
+    width: 10px;
+    height: 10px;
+    border-top: 2px solid currentColor;
+    border-left: 2px solid currentColor;
+    transform: translateY(3px) rotate(45deg);
+    transition: transform .22s ease;
+}
+
+.dev-tools-dock.is-open .dev-tools-nav-chevron {
+    transform: translateY(-2px) rotate(225deg);
+}
+
+.dev-tools-panel {
+    position: absolute;
+    right: 6px;
+    bottom: calc(100% + 7px);
+    width: 44px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 7px;
+    padding: 7px 5px;
+    border-width: 1px;
+    border-radius: 22px;
+    overflow: visible;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(12px) scale(.96);
+    transform-origin: 50% 100%;
+    transition: opacity .2s ease, visibility .2s ease, transform .24s ease;
+}
+
+.dev-tools-dock.is-open .dev-tools-panel {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0) scale(1);
+}
+
+.dev-tools-button {
+    position: relative;
+    width: 32px;
+    height: 32px;
+    flex: 0 0 32px;
+    border-radius: 50%;
+    box-shadow: none;
+}
+
+.dev-tools-button.is-active {
+    color: rgba(var(--heo-text-rgb, 142, 225, 162), var(--heo-muted-opacity, .96));
+    border-color: rgba(95, 180, 115, .82);
+    background: rgba(38, 115, 70, .54);
+}
+
+.dev-tools-button.is-busy {
+    cursor: progress;
+    animation: dev-tools-pulse .8s ease-in-out infinite alternate;
+}
+
+.dev-tools-icon {
+    position: relative;
+    display: block;
+    width: 17px;
+    height: 17px;
+    pointer-events: none;
+}
+
+.dev-tools-icon-grid {
+    border: 1px solid currentColor;
+    border-radius: 2px;
+    background-image:
+        linear-gradient(to right,
+            transparent 30%, currentColor 30%, currentColor 36%,
+            transparent 36%, transparent 64%, currentColor 64%,
+            currentColor 70%, transparent 70%),
+        linear-gradient(to bottom,
+            transparent 30%, currentColor 30%, currentColor 36%,
+            transparent 36%, transparent 64%, currentColor 64%,
+            currentColor 70%, transparent 70%);
+}
+
+.dev-tools-icon-camera {
+    width: 18px;
+    height: 13px;
+    margin-top: 3px;
+    border: 1.7px solid currentColor;
+    border-radius: 3px;
+}
+
+.dev-tools-icon-camera::before {
+    content: "";
+    position: absolute;
+    top: -4px;
+    left: 3px;
+    width: 7px;
+    height: 3px;
+    border: 1.7px solid currentColor;
+    border-bottom: 0;
+    border-radius: 2px 2px 0 0;
+}
+
+.dev-tools-icon-camera::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 5px;
+    height: 5px;
+    border: 1.5px solid currentColor;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.dev-tools-icon-panel {
+    border: 1.7px solid currentColor;
+    border-radius: 3px;
+}
+
+.dev-tools-icon-panel::before {
+    content: "";
+    position: absolute;
+    inset: 3px;
+    border: 1px solid currentColor;
+    border-radius: 1px;
+    opacity: .72;
+}
+
+.dev-tools-icon-app {
+    height: 14px;
+    margin-top: 1px;
+    border: 1.7px solid currentColor;
+    border-radius: 2px;
+}
+
+.dev-tools-icon-app::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 3px;
+    border-top: 1px solid currentColor;
+}
+
+.dev-tools-icon-app::after {
+    content: "";
+    position: absolute;
+    top: 1px;
+    left: 2px;
+    width: 1.5px;
+    height: 1.5px;
+    border-radius: 50%;
+    background: currentColor;
+    box-shadow: 3px 0 currentColor;
+}
+
+/* Die native Tab-Aufnahme übernimmt die bereits vom Browser zusammengesetzten
+   Pixel. Der komplette Dev-Tools-Dock wird in jedem Capture-Modus vor dem
+   ersten Stream-Frame entfernt; als fixed Element ändert das die Geometrie des
+   aufgenommenen Inhalts nicht. */
+html.heo-native-capture #dev-tools-dock {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
+/* Beim Main-Panel-Crop ersetzt eine opake, rechteckige Arbeitsfläche den
+   Glasspanel-Look. Dashboard und Gesamtfenster erhalten diese Klasse nie und
+   werden daher unverändert aus dem aktuellen Tab übernommen. */
+html.heo-main-panel-native-capture
+    [data-heo-native-capture-root="main-panel"] {
+    border: 0 !important;
+    border-radius: 0 !important;
+    outline: none !important;
+    background: #fff !important;
+    background-color: #fff !important;
+    background-image: none !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+/* Das Main-Panel liegt in einer ebenfalls abgerundeten Flip-Fläche. Für den
+   aufgenommenen Frame darf auch dieser Eltern-Clip keine runden Ecken
+   erzeugen; die Info-Navigation gehört nicht zum exportierten Inhalt. */
+html.heo-main-panel-native-capture .dashboard-info-face {
+    border: 0 !important;
+    border-radius: 0 !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+html.heo-main-panel-native-capture .dashboard-info-button {
+    visibility: hidden !important;
+    pointer-events: none !important;
+}
+
+@keyframes dev-tools-pulse {
+    from { opacity: .55; }
+    to { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .dev-tools-nav-button,
+    .dev-tools-button,
+    .dev-tools-panel,
+    .dev-tools-nav-chevron {
+        transition-duration: .01ms;
+    }
+}
+
+/* Die Entwicklervorschau nutzt denselben Szenenrenderer wie die Ergebnisansicht. */
+.dev-topology-static-scene {
+    position: absolute;
+    inset: 0;
+}
+/* Die Überschrift liegt im Panel-Padding oberhalb des Topologie-Viewports.
+   Nur in dieser Vorschau müssen dessen Eltern den Titel über den Rand hinaus zeichnen. */
+.konfig-topology-content:has(> .dev-topology-static-preview),
+.konfig-topology-canvas.dev-topology-static-preview {
+    overflow: visible;
+}
+
+.dev-topology-static-preview > .dev-topology-preview-label {
+    position: absolute;
+    top: calc(var(--heo-main-panel-padding) / -2);
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+    max-width: 100%;
+    text-align: center;
+    z-index: 5;
+    pointer-events: none;
+}

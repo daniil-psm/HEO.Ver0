@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "buildings": [
+    {
+      "id": 1,
+      "name": "Community Center"
+    },
+    {
+      "id": 2,
+      "name": "Sauna"
+    },
+    {
+      "id": 3,
+      "name": "Hütte"
+    },
+    {
+      "id": 4,
+      "name": "Hütte"
+    },
+    {
+      "id": 5,
+      "name": "Hütte"
+    }
+  ]
+}

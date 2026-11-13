@@ -1,0 +1,37 @@
+.konfig-all-parameters {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+}
+.konfig-all-parameters > .general-project-dashboard {
+    height: auto;
+    min-height: 0;
+    overflow: visible;
+}
+.konfig-all-parameters #all-param-error {
+    color: #ffb2a5;
+}
+.konfig-parameters-overlay {
+    display: none;
+    z-index: 30;
+}
+.konfig-parameters-overlay:has(.konfig-all-parameters) {
+    display: block;
+}
+.konfig-all-parameters .general-project-dashboard {
+    padding: 0;
+}
+.konfig-all-parameters .heo-field__control,
+.konfig-all-parameters .heo-field__value {
+    min-width: 0;
+}
+.konfig-all-parameters .heo-field__value {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+}
+.konfig-all-parameters .general-config-dialog-grid > .konfig-form-cell {
+    padding: 6px;
+}
+.konfig-all-parameters .general-master-detail-panel {
+    min-width: 0;
+}

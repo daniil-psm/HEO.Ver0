@@ -1,0 +1,20 @@
+.konfig-series-values {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(85px, 1fr));
+    gap: 8px;
+    margin-top: 8px;
+}
+.konfig-series-values label { min-width: 0; display: grid; gap: 4px; }
+.konfig-series-values input { width: 100%; min-width: 0; box-sizing: border-box; }
+.konfig-series-values .konfig-readonly-value {
+    display: flex;
+    align-items: center;
+    min-height: 42px;
+    padding: 8px 11px;
+    box-sizing: border-box;
+    border: 1px solid rgba(var(--heo-border-rgb, 201, 222, 208), .32);
+    border-radius: var(--heo-control-radius);
+    background: rgba(var(--heo-surface-rgb, 7, 19, 13), .68);
+}
+.konfig-series-readonly-mode { font-weight: 600; }
+.konfig-series-error { color: #b45309; font-size: 0.85em; }

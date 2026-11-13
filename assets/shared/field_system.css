@@ -1,0 +1,195 @@
+/* Neutraler Feldkern für Formulare, Parameterdialoge und Ergebnis-Overlays. */
+
+.heo-field-grid {
+    min-width: 0;
+    display: grid;
+}
+
+.heo-field-cell {
+    min-width: 0;
+}
+
+/* Jeder Renderer liefert denselben Inhaltsbedarf. Die Außenansicht bestimmt
+   die Rasterbreite; Karten und Felder wachsen nur mit ihrem eigenen Inhalt. */
+[data-form-planner="automatic"] {
+    /* Bis zur ersten Messung bleibt der Inhalt als einzelne Spalte lesbar. */
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+    /* Der Formularzustand hält den Bedienanker; kein zweiter Browseranker. */
+    overflow-anchor: none;
+}
+
+[data-form-planner="automatic"] > .heo-field-cell {
+    align-self: start;
+    box-sizing: border-box;
+    grid-column: auto;
+    grid-row: auto;
+}
+
+[data-form-planner="automatic"] [hidden] {
+    display: none !important;
+}
+
+.heo-field {
+    min-width: 0;
+    padding: 13px 14px;
+    box-sizing: border-box;
+    border: 1px solid rgba(var(--heo-border-rgb, 222, 236, 226), .16);
+    border-radius: var(--heo-field-radius, 18px);
+    color: rgba(var(--heo-text-rgb, 255, 255, 255), .9);
+    background: rgba(var(--heo-surface-rgb, 16, 32, 24), .42);
+}
+
+.heo-field__label {
+    display: block;
+    margin-bottom: 8px;
+    color: rgba(var(--heo-text-rgb, 224, 238, 228), .78);
+    font-size: var(--heo-font-size-parameter, 13px);
+    font-weight: 700;
+}
+
+.heo-field__control {
+    display: flex;
+    align-items: stretch;
+    gap: 4px;
+}
+
+.heo-field__value {
+    color: rgba(var(--heo-text-rgb, 255, 255, 255), .96);
+    font-size: var(--heo-font-size-control, 14px);
+    font-weight: 700;
+    line-height: 1.25;
+}
+
+.heo-field__unit {
+    color: rgba(var(--heo-text-rgb, 224, 238, 228), .78);
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.heo-field--readonly .heo-field__control {
+    align-items: baseline;
+    flex-wrap: wrap;
+}
+
+.heo-field--readonly .heo-field__value {
+    margin-top: 4px;
+}
+.konfig-inspector-card,
+.konfig-simulation-choice,
+.energy-result-card {
+    /* Einblendende Parameter ändern die Nutzbreite nicht durch Scrollbars. */
+    scrollbar-gutter: stable;
+}
+
+/* Dieselben Controls reagieren in allen automatischen Formularansichten
+   auf ihre Feldbreite. Feste MG-Startprofile behalten ihre bisherige Darstellung. */
+[data-form-planner="automatic"] .konfig-field {
+    container-type: inline-size;
+    container-name: parameter;
+    min-width: 0;
+    max-width: 100%;
+}
+
+/* Die gemeinsame Innenbox reserviert ihren Rahmen auch im eingeklappten
+   Zustand. Beim Aktivieren ändern sich Farbe und Inhalt, nicht der Mausort
+   des Schalters durch nachträglich hinzukommendes Padding. */
+[data-form-planner="automatic"] .konfig-conditional-field-scope:has(> [data-conditional-panel="true"]) {
+    display: block;
+    min-width: 0;
+    padding: 7px;
+    border: 1px solid transparent;
+    border-radius: calc(var(--heo-field-radius, 18px) + 4px);
+}
+
+[data-form-planner="automatic"] .heo-field__label,
+[data-form-planner="automatic"] .konfig-radio label span,
+[data-form-planner="automatic"] .konfig-check label span {
+    white-space: normal;
+    overflow-wrap: anywhere;
+}
+
+[data-form-planner="automatic"] .konfig-parameter-control--number,
+[data-form-planner="automatic"] .konfig-parameter-control--text {
+    flex-wrap: wrap;
+    /* fit-content schrumpft bei umbrochenen Flex-Zeilen zu früh. */
+    width: 100%;
+}
+
+[data-form-planner="automatic"] .konfig-unit {
+    min-width: min(42px, 100%);
+    max-width: 100%;
+    white-space: normal;
+    overflow-wrap: anywhere;
+}
+
+[data-form-planner="automatic"] .konfig-unit-fraction {
+    min-width: 0;
+}
+
+[data-form-planner="automatic"] .konfig-angle-editor {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+[data-form-planner="automatic"] .konfig-angle-dial--orientation {
+    flex: 0 0 112px;
+    max-width: 100%;
+}
+
+[data-form-planner="automatic"] .konfig-angle-dial--inclination {
+    flex: 0 0 160px;
+    width: 160px;
+    max-width: 100%;
+}
+
+[data-form-planner="automatic"] .konfig-angle-number {
+    flex: 0 1 162px;
+    max-width: 100%;
+}
+
+[data-form-planner="automatic"] .konfig-angle-number > .konfig-editable-value {
+    min-width: 0;
+    flex: 1 1 112px;
+}
+
+@container parameter (max-width: 380px) {
+    [data-form-planner="automatic"] .konfig-period-dates {
+        grid-template-columns: auto minmax(0, 1fr);
+    }
+}
+
+[data-form-planner="automatic"] .konfig-parameter-control--number > .konfig-editable-value,
+[data-form-planner="automatic"] .konfig-parameter-control--text > .konfig-editable-value {
+    min-width: min(112px, 100%);
+    width: var(--konfig-input-slot-width, 112px);
+    flex-basis: var(--konfig-input-slot-width, 112px);
+}
+
+/* Auswahlknopf und Text sind in Dash 4 separate Flex-Kinder. Der Knopf
+   behält seinen Platz; nur die Beschriftung darf im schmalen Fallback umbrechen. */
+[data-form-planner="automatic"] .konfig-radio .dash-options-list-option-wrapper,
+[data-form-planner="automatic"] .konfig-check .dash-options-list-option-wrapper {
+    flex: 0 0 18px;
+    min-width: 18px;
+}
+
+[data-form-planner="automatic"] .konfig-radio .dash-options-list-option-text,
+[data-form-planner="automatic"] .konfig-check .dash-options-list-option-text {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+[data-form-planner="automatic"] .konfig-parameter-control--choice {
+    width: 100%;
+}
+
+/* Dash 4 legt die Feldklasse auf einen Container. Auch Texteingaben müssen
+   dessen Breite übernehmen, statt mit ihrer nativen 20-Zeichen-Breite überzulaufen. */
+[data-form-planner="automatic"] .heo-field__input > .dash-input-element {
+    min-width: 0;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}

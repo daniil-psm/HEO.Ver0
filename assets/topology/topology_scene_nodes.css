@@ -1,0 +1,303 @@
+/* Gemeinsame HTML-Szene für Konfigurator und Energiesystem. */
+:root {
+    /* Eine Typografie für alle Node- und Pillenlabels – unabhängig davon,
+       ob sie im Dash-Konfigurator oder im HTML-Renderer liegen. */
+    --topology-node-font-family: 'Segoe UI', Arial, sans-serif;
+    --topology-node-label-font: 800 12.5px/1.08 'Segoe UI', Arial, sans-serif;
+    --topology-node-foreground: #14201a;
+    --topology-node-background: rgb(250, 251, 249);
+    --topology-node-border-width: 4px;
+    --topology-node-shadow: 0 8px 20px rgba(0, 0, 0, .2);
+    --topology-node-padding: 4px;
+    --topology-pill-padding: 5px;
+    --topology-pill-justify-content: space-around;
+    --topology-pill-radius: 999px;
+}
+
+/* Gemeinsame visuelle Oberfläche. Position, Größe und Textfluss bleiben bei
+   Szenen-Nodes und Dokumentationspillen bewusst getrennte Layout-Policies. */
+.topology-node-surface {
+    box-sizing: border-box;
+    color: var(--topology-node-foreground);
+    background: var(--topology-node-background);
+    font-family: var(--topology-node-font-family);
+    box-shadow: var(--topology-node-shadow);
+}
+
+/* Alle Tabs verwenden denselben seitenverhältnistreuen Innenrahmen. Damit
+   werden Mittelpunkte, Kreisradien, Badge-Orbits, Ports und SVG-Pfade mit
+   demselben Faktor skaliert. Unterschiedliche Fenstergrößen erzeugen nur
+   Letterboxing, niemals eine geometrische Verzerrung. */
+.topology-renderer {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    min-height: 0;
+    overflow: hidden;
+    container-type: size;
+}
+
+.topology-scene-frame {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: min(100cqw, calc(100cqh * var(--topology-canvas-aspect)));
+    height: min(100cqh, calc(100cqw / var(--topology-canvas-aspect)));
+    transform: translate(-50%, -50%);
+    overflow: visible;
+    container-type: size;
+}
+
+.topology-edge-host,
+.topology-edge-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+
+.topology-edge-host {
+    z-index: 10;
+    pointer-events: none;
+}
+
+.topology-edge-svg {
+    display: block;
+}
+
+.topology-edge-path-layer,
+.topology-edge-particle-layer {
+    pointer-events: none;
+}
+
+.topology-edge-host .topology-svg-edge-hitbox[data-topology-action] {
+    pointer-events: stroke;
+    cursor: pointer;
+}
+
+.topology-scene-node {
+    position: absolute;
+    appearance: none;
+    -webkit-appearance: none;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--topology-node-padding);
+    border: var(--topology-node-border-width) solid var(--node-color, #4f635a);
+    border-radius: 50%;
+    font: var(--topology-node-label-font);
+    text-align: center;
+    white-space: pre-line;
+    overflow: hidden;
+}
+
+.topology-scene-node > .topology-node-label {
+    display: block;
+    max-width: 96%;
+    max-height: 96%;
+    overflow: hidden;
+    white-space: pre-line;
+    /* Nur die zentral vorgegebenen Labelvarianten dürfen umbrechen. */
+    overflow-wrap: normal;
+    word-break: normal;
+    line-height: 1.08;
+}
+
+.topology-scene-node-building > .topology-node-label {
+    max-width: 84%;
+}
+
+.topology-scene-node-pill {
+    flex-direction: column;
+    justify-content: var(--topology-pill-justify-content);
+    padding: var(--topology-pill-padding);
+    border-radius: var(--topology-pill-radius);
+}
+
+.topology-scene-node-building {
+    padding: 8px;
+    border-color: #43564d;
+}
+
+.topology-scene-node-badge {
+    min-width: 0;
+    min-height: 0;
+    padding: 0;
+    border-width: clamp(1px, .21cqw, 2px);
+    font-size: clamp(5px, 1.05cqw, 10px);
+    line-height: 1;
+}
+
+.energy-html-node-layer {
+    position: absolute;
+    inset: 0;
+    z-index: 20;
+    pointer-events: none;
+}
+
+.topology-renderer > .topology-overlay-shell {
+    z-index: 80;
+}
+
+.energy-html-node-layer .topology-scene-node {
+    pointer-events: auto;
+    cursor: pointer;
+}
+
+.energy-html-node-layer .topology-scene-node:not([data-topology-action='result-node']) {
+    pointer-events: none;
+    cursor: default;
+}
+
+.energy-html-node-layer .topology-scene-node:hover {
+    z-index: 30 !important;
+    transform: translate(-50%, -50%) scale(1.07);
+    box-shadow: 0 0 0 7px rgba(255, 255, 255, .12), 0 12px 28px rgba(0, 0, 0, .3);
+}
+
+.energy-html-node-layer.is-static .topology-scene-node {
+    pointer-events: none;
+    cursor: default;
+}
+
+.energy-html-node-layer.is-static .topology-scene-node:hover {
+    z-index: inherit !important;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, .2);
+}
+
+/* Ein gemeinsames Raster für Konfigurator und HTML-Ergebnisrenderer. Die
+   Positionen stammen in beiden Fällen aus topology_grid_lines(). */
+.topology-grid-overlay {
+    position: absolute;
+    z-index: 0;
+    box-sizing: border-box;
+    pointer-events: none;
+}
+
+.topology-grid-line {
+    position: absolute;
+    pointer-events: none;
+}
+
+.topology-grid-line.is-vertical {
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    transform: translateX(-.5px);
+}
+
+.topology-grid-line.is-horizontal {
+    left: 0;
+    right: 0;
+    height: 1px;
+    transform: translateY(-.5px);
+}
+
+.topology-grid-line.is-main {
+    z-index: 2;
+}
+
+.topology-grid-line.is-intermediate {
+    z-index: 1;
+}
+
+.energy-html-empty-message {
+    position: absolute;
+    inset: 50% auto auto 50%;
+    z-index: 30;
+    max-width: min(720px, 80%);
+    transform: translate(-50%, -50%);
+    color: rgba(var(--heo-text-rgb, 255, 255, 255), .72);
+    font: 600 18px 'Segoe UI', Arial, sans-serif;
+    text-align: center;
+}
+
+/* Gemeinsamer Zustand für nicht editierbare und editierbare Topologien:
+   eine Einblendung stellt die gesamte bestehende Szene zurück, nie nur ihre
+   SVG-Kanten. Renderer markieren ihren Viewport beziehungsweise Canvas mit
+   diesen Klassen. */
+.topology-visual-root.is-topology-desaturated
+    > .topology-scene-frame > .topology-visual-layer {
+    filter: saturate(0);
+}
+
+/* Beim Edge-Fokus treten Raster, Nodes und Editiercontrols zurück. Der
+   Edge-Host selbst bleibt farbig; innerhalb des Hosts entsättigt die
+   Interaktionslogik ausschließlich die nicht fokussierten Kanten. */
+.topology-visual-root.is-topology-edge-focused
+    > .topology-scene-frame > :not(.topology-edge-host) {
+    filter: saturate(0);
+}
+
+.topology-visual-root.is-topology-edge-focused
+    > .topology-scene-frame > .topology-edge-host {
+    filter: none;
+}
+
+.topology-power-pill-label {
+    position: absolute;
+    z-index: 8;
+    width: 92%;
+    transform: translate(-50%, -50%);
+    color: #14201a;
+    font: var(--topology-node-label-font);
+    text-align: center;
+    pointer-events: none;
+}
+
+/* Gemeinsamer Edge-Fokus der SVG-basierten Topologien. Die breite,
+   transparente Hitbox macht auch dünne Topologiekanten gut erreichbar. */
+.topology-svg-edge-group,
+.topology-svg-edge-particles {
+    transition: filter .16s ease, opacity .16s ease;
+}
+
+.topology-svg-edge-group {
+    pointer-events: none;
+}
+
+/* Die Verlustspur liegt auf der Lade-Edge und passt ihren Ton ans Theme an. */
+:root:not([data-theme="dark"]) .topology-svg-edge-storage-loss {
+    stroke: #000;
+    opacity: .2;
+}
+
+:root[data-theme="dark"] .topology-svg-edge-storage-loss {
+    stroke: #fff;
+    opacity: .2;
+}
+
+.topology-svg-edge-hitbox {
+    pointer-events: stroke;
+    cursor: default;
+}
+
+.topology-svg-edge-group.is-edge-muted,
+.topology-svg-edge-particles.is-edge-muted {
+    filter: grayscale(1);
+    opacity: .24;
+}
+
+.energy-pfc-node {
+    flex-direction: column;
+    gap: 2px;
+}
+
+.energy-pfc-node-value,
+.topology-power-pill-value {
+    display: block;
+    color: #14201a;
+    font: 800 10.5px/1 'Segoe UI', Arial, sans-serif;
+    white-space: nowrap;
+    pointer-events: none;
+}
+
+.topology-power-pill-value {
+    position: absolute;
+    z-index: 9;
+    transform: translate(-50%, -50%);
+}

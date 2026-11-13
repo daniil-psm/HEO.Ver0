@@ -1,0 +1,59 @@
+/* Die Auswahl liegt außerhalb des Formularrasters; das aktive Feld bleibt am Ort. */
+.heo-unit-source { display: none !important; }
+.heo-unit-number { display: contents; }
+button.heo-unit-button {
+    /* Familie erben, ohne die gemeinsamen 12px-/Gewichtsregeln zu überschreiben. */
+    font-family: inherit;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+button.heo-unit-button:hover,
+button.heo-unit-button:focus-visible,
+.heo-unit-origin:hover,
+.heo-unit-origin:focus-visible { outline: 2px solid var(--accent-color, #36b37e); outline-offset: 2px; }
+.heo-unit-dialog-muted {
+    filter: saturate(.16);
+    opacity: .56;
+}
+.heo-unit-active-anchor { opacity: 0 !important; }
+.heo-unit-origin {
+    position: fixed;
+    left: inherit;
+    pointer-events: auto;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+.heo-unit-picker {
+    position: fixed;
+    top: 0;
+    z-index: 100000;
+    pointer-events: none;
+    font-size: 14px;
+    line-height: 1.35;
+}
+.heo-unit-candidates {
+    position: fixed;
+    left: inherit;
+    width: inherit;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    pointer-events: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 0;
+    scrollbar-width: none;
+}
+.heo-unit-candidates::-webkit-scrollbar { display: none; }
+.heo-unit-candidates:empty { display: none; }
+.heo-unit-candidate {
+    flex: 0 0 auto;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+.heo-unit-candidate:hover,
+.heo-unit-candidate:focus-visible {
+    outline: 2px solid var(--accent-color, #36b37e);
+    outline-offset: -2px;
+}
+.heo-unit-readonly { display: inline-flex; align-items: center; gap: .3em; }

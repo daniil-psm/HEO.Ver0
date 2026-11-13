@@ -1,0 +1,39 @@
+/* Gemeinsame Darstellung aller nativen Scrollbereiche. Welche Flächen
+   scrollen, bestimmen weiterhin ihre lokalen overflow- und Größenregeln.
+   Mausrad, Touchpad, Tastatur und Ziehen bleiben Browserfunktionen. */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--heo-scrollbar-thumb, #39754b)
+        var(--heo-scrollbar-track, rgba(38, 105, 60, .12));
+}
+
+/* Ältere WebKit/Chromium-Versionen ohne die Standard-Eigenschaften. */
+@supports not (scrollbar-color: auto) {
+    ::-webkit-scrollbar {
+        width: 10px;
+        height: 10px;
+    }
+
+    ::-webkit-scrollbar-track,
+    ::-webkit-scrollbar-corner {
+        background: var(--heo-scrollbar-track, rgba(38, 105, 60, .12));
+    }
+
+    ::-webkit-scrollbar-thumb {
+        border: 2px solid transparent;
+        border-radius: 999px;
+        background: var(--heo-scrollbar-thumb, #39754b);
+        background-clip: padding-box;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background-color: var(--heo-scrollbar-thumb-hover, #205832);
+    }
+}
+
+/* Systemfarben bleiben im Kontrastmodus des Betriebssystems maßgeblich. */
+@media (forced-colors: active) {
+    * {
+        scrollbar-color: auto;
+    }
+}

@@ -1,0 +1,6 @@
+id;building;year;retrofit;construction_type;night_setback;area;heater;dhw_heater;cooling;EV;f_TES;f_BAT;f_PV1;f_PV2;f_STC;beta_PV;gamma_PV;ev_charging
+1;RE;2027;0;0;0;194.4;heat_grid;EH_DHW;1;0.8;0.0;0.0;0.0;0.0;0.0;35.0;0.0;bi_directional
+2;RE;2027;0;0;0;30.3;heat_grid;EH_DHW;1;0.0;0.0;0.0;0.0;0.0;0.0;35.0;0.0;on_demand
+3;SFH;2027;0;0;0;31.3;heat_grid;EH_DHW;1;0.0;0.0;0.0;0.0;0.0;0.0;35.0;0.0;on_demand
+4;SFH;2027;0;0;0;31.3;heat_grid;EH_DHW;1;0.0;0.0;0.0;0.0;0.0;0.0;35.0;0.0;on_demand
+5;SFH;2027;0;0;0;31.3;heat_grid;EH_DHW;1;0.0;0.0;0.0;0.0;0.0;0.0;35.0;0.0;on_demand

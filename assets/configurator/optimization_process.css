@@ -1,0 +1,98 @@
+/* DG-Optimierungsdokumentation und Öffner an der Optimierungsaktion. */
+.konfig-simulate-control {
+    position: relative;
+    width: 100%;
+    --konfig-simulate-corner-inset: 11px;
+}
+
+.konfig-simulate-control:has(> .konfig-simulate-button[hidden]) {
+    display: none;
+}
+
+.konfig-simulate-info-button {
+    position: absolute;
+    z-index: 2;
+    top: var(--konfig-simulate-corner-inset);
+    left: var(--konfig-simulate-corner-inset);
+    transform: translate(-50%, -50%);
+    width: 30px;
+    height: 30px;
+    padding: 0 0 1px;
+    border: 2px solid var(--heo-sidebar-button-border-color);
+    border-radius: 50%;
+    background: var(--heo-surface);
+    color: var(--heo-text);
+    font: 700 17px/1 Georgia, serif;
+    cursor: pointer;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .15s ease, background-color .15s ease;
+}
+
+.konfig-simulate-control > .konfig-simulate-button:hover:not(:disabled) {
+    transform: none;
+}
+
+.konfig-simulate-control:hover .konfig-simulate-info-button,
+.konfig-simulate-control:focus-within .konfig-simulate-info-button,
+.konfig-simulate-info-button[aria-expanded="true"] {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.konfig-simulate-info-button:hover,
+.konfig-simulate-info-button:focus-visible,
+.konfig-simulate-info-button[aria-expanded="true"] {
+    background: var(--heo-glass-panel-active-background);
+    outline: 2px solid var(--heo-glass-panel-active-border);
+    outline-offset: 2px;
+}
+
+.konfig-process-overlay {
+    z-index: 45;
+}
+
+.dashboard-info-content.konfig-process-info-content {
+    align-items: flex-start;
+    min-height: 0;
+}
+
+.konfig-process-documentation {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    color: var(--heo-text);
+}
+
+
+.konfig-process-sections {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 36px;
+}
+
+.konfig-process-section {
+    min-width: 0;
+}
+
+.konfig-process-section h3 {
+    margin: 0 0 16px;
+    color: var(--heo-text);
+    font-size: clamp(20px, 1.7vw, 26px);
+    font-weight: 650;
+    line-height: 1.25;
+}
+
+.konfig-process-figure {
+    width: 100%;
+    max-width: 1500px;
+    min-width: 0;
+    margin: 0;
+}
+
+.konfig-process-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+}

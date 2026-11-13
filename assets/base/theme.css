@@ -1,0 +1,230 @@
+/* ####################################################################
+   ##  ACHTUNG: REKONSTRUIERTE DATEI (22.10.2026)                     ##
+   ####################################################################
+   Original durch Dateisystemschaden mit Pyomo-Daten ueberschrieben,
+   archiviert unter _archiv_beschaedigt_20261022/assets/.
+   Wiederhergestellt mit KI-Unterstuetzung (Claude) aus den
+   Codex-Protokollen:
+   Vollstaendige Ausgabe von 'sed -n 1,250p assets/theme.css' am
+   21.10.2026 16:07 (UTC), Rollout 10/21/rollout-2026-10-21T18-06-13-...
+   Danach gab es keine Aenderungen mehr an der Datei.
+   Pruefung: Ergebnis 7.550 Bytes, exakt gleich gross wie das Original.
+   #################################################################### */
+
+/* Ohne gespeicherte Auswahl startet die App im Light Mode.
+   Die Fallbacks in den Komponenten erhalten die ursprünglichen Dark-Farben. */
+:root:not([data-theme="dark"]) {
+    color-scheme: light;
+    --heo-light-green: #2E7548;
+    --heo-light-ink: #183D2B;
+    --heo-light-fill-rgb: 95, 180, 115;
+    --heo-scrollbar-thumb: var(--heo-light-green);
+    --heo-scrollbar-thumb-hover: var(--heo-light-green);
+    --heo-scrollbar-track: rgba(24, 61, 43, .12);
+    --heo-page-background: #F4EFE6;
+    --heo-page-image: linear-gradient(rgba(239, 247, 236, .58), rgba(239, 247, 236, .58)), url("/assets/images/LightModeBackground.jpg");
+    --heo-text: var(--heo-light-ink);
+    --heo-text-rgb: 24, 61, 43;
+    --heo-muted-opacity: .86;
+    --heo-chart-text: var(--heo-light-ink);
+    --heo-chart-grid: rgba(24, 61, 43, .18);
+    --heo-border-rgb: 24, 61, 43;
+    --heo-surface-rgb: 255, 252, 246;
+    --heo-surface: #fffcf6;
+    --schriftfarbe_weiss: var(--heo-light-ink);
+    --grau_transparent: var(--heo-light-ink);
+    --weiss_stark_transparent: rgba(24, 61, 43, .08);
+    --weiss_leicht_transparent: rgba(24, 61, 43, .7);
+    --heo-glass-panel-background: rgba(var(--heo-light-fill-rgb), .08);
+    --heo-glass-panel-border: var(--heo-light-ink);
+    --heo-glass-panel-active-background: var(--heo-light-green);
+    --heo-glass-panel-active-border: var(--heo-light-green);
+    --heo-glass-panel-shadow: 0 28px 80px rgba(24, 61, 43, .10);
+    --heo-control-background: rgba(var(--heo-light-fill-rgb), .16);
+    --heo-control-hover-background: rgba(var(--heo-light-fill-rgb), .24);
+    --heo-accent-color: var(--heo-light-green);
+    --heo-sidebar-button-border-color: var(--heo-light-ink);
+    --grün_dunkel_hervorhebung: var(--heo-glass-panel-active-background);
+    --grün_hell_hervorhebung: var(--heo-light-green);
+}
+
+/* Auf der Startseite liegt das Bild im rechten Dashboard-Panel. */
+:root:not([data-theme="dark"]) .home-main-panel {
+    display: block;
+    background-image: url("/assets/images/Saaremaa.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+:root[data-theme="dark"] {
+    color-scheme: dark;
+    --heo-scrollbar-thumb: #73bb87;
+    --heo-scrollbar-thumb-hover: #9cdbad;
+    --heo-scrollbar-track: rgba(226, 238, 230, .10);
+    --heo-chart-text: #e2eee6;
+    --heo-chart-grid: rgba(226, 238, 230, .16);
+    --heo-text: #f4fff6;
+    --heo-text-rgb: 244, 255, 246;
+    --heo-border-rgb: 230, 235, 230;
+    --heo-surface-rgb: 18, 34, 28;
+    --heo-surface: #12221c;
+}
+
+:root:not([data-theme="dark"]) .general-project-dashboard .general-info-card {
+    background: rgba(255, 252, 246, .62);
+    border-color: rgba(24, 61, 43, .24);
+}
+:root:not([data-theme="dark"]) .general-project-dashboard .heo-field--readonly {
+    background: rgba(255, 255, 255, .66);
+}
+:root:not([data-theme="dark"]) .general-project-dashboard .general-info-status {
+    color: var(--heo-text);
+    background: rgba(var(--heo-light-fill-rgb), .16);
+    font-size: 12px;
+}
+
+/* Sofortige Lesbarkeit auch während Plotly eine neue Figur aufbaut.
+   Die Layout-Farben selbst synchronisiert plotly_theme.js (auch für Export). */
+:root:not([data-theme="dark"]) .js-plotly-plot .main-svg text {
+    fill: var(--heo-chart-text) !important;
+}
+:root:not([data-theme="dark"]) .js-plotly-plot .hoverlayer .hovertext path {
+    fill: #fffcf6 !important;
+    stroke: var(--heo-light-ink) !important;
+}
+
+/* Panels bleiben leicht getönt; bedienbare Flächen erhalten mehr Deckkraft. */
+:root:not([data-theme="dark"]) :is(
+    .glass-panel,
+    .app-sidebar-panel,
+    .konfig-landing-panel
+) {
+    background-color: var(--heo-glass-panel-background);
+    border-color: var(--heo-glass-panel-border);
+    border-width: 1px;
+}
+
+:root:not([data-theme="dark"]) {
+    --heo-glass-panel-border-width: 1px;
+}
+
+:root:not([data-theme="dark"]) :is(
+    .nav-tab,
+    .app-sidebar-nav-button,
+    .energy-profile-button,
+    .energy-cluster-button,
+    .konfig-scenario-choice,
+    .konfig-focus-choice label,
+    .konfig-choice-button
+) {
+    background-color: var(--heo-control-background) !important;
+    border-color: var(--heo-light-ink) !important;
+    border-width: 1px !important;
+    color: var(--heo-light-ink) !important;
+}
+
+/* Hover und Auswahl gelten für bedienbare Flächen. Große Inhalts-Panels
+   bleiben beim Bedienen ihrer Diagramme und Formulare farblich stabil. */
+:root:not([data-theme="dark"]) :is(
+    .nav-tab:hover:not(:disabled),
+    .nav-tab:focus-visible,
+    .nav-tab-selected,
+    .app-sidebar-nav-button:hover:not(:disabled),
+    .app-sidebar-nav-button:focus-visible,
+    .app-sidebar-nav-button-active,
+    .energy-profile-button:hover,
+    .energy-profile-button:focus-visible,
+    .energy-profile-button-active,
+    .energy-cluster-button:hover,
+    .energy-cluster-button:focus-visible,
+    .energy-cluster-button-active,
+    .energy-pfc-control-header .energy-cluster-button-active,
+    .konfig-focus-choice label:hover,
+    .konfig-focus-choice label:focus-within,
+    .konfig-focus-choice label:has(input:checked),
+    .konfig-choice-button:hover,
+    .konfig-choice-button:focus-visible,
+    .konfig-landing-panel:hover,
+    .konfig-landing-panel:focus-within,
+    .glass-panel.is-selected,
+    .glass-panel[aria-selected="true"],
+    button.glass-panel:hover:not(:disabled),
+    button.glass-panel:focus-visible,
+    .glass-panel[role="button"]:hover,
+    .glass-panel[role="button"]:focus-visible,
+    .konfig-scenario-choice:hover,
+    .konfig-scenario-choice.is-selected,
+    .konfig-scenario-choice.is-editing,
+    .general-master-list-item:hover,
+    .general-master-list-item:focus-visible,
+    .general-master-list-item.is-selected
+) {
+    --heo-text: #ffffff;
+    --heo-text-rgb: 255, 255, 255;
+    --schriftfarbe_weiss: #ffffff;
+    --heo-border-rgb: 24, 61, 43;
+    --heo-surface-rgb: 46, 117, 72;
+    --heo-surface: #2E7548;
+    color: var(--heo-text) !important;
+    background-color: var(--heo-glass-panel-active-background) !important;
+    border-color: var(--heo-glass-panel-active-border) !important;
+}
+
+/* Deaktivierte Aktionen bleiben neutral und unterscheiden sich von der
+   transparenten, aber bedienbaren Navigation. */
+:root:not([data-theme="dark"]) :is(
+    .nav-tab:disabled:not(.nav-tab-selected),
+    .app-sidebar-nav-button:disabled:not(.app-sidebar-nav-button-active)
+) {
+    opacity: 1;
+    color: #747A76 !important;
+    background-color: #E5E5E0 !important;
+    border-color: #A7ADA8 !important;
+}
+
+body {
+    color: var(--schriftfarbe_weiss);
+}
+
+/* Optimierungswahl nutzt dieselben Textfarben wie die übrigen Formulare. */
+.konfig-simulation-choice,
+.konfig-simulation-choice .konfig-focus-choice,
+.konfig-simulation-choice .konfig-choice-actions {
+    color: var(--heo-text, var(--schriftfarbe_weiss));
+}
+
+:root:not([data-theme="dark"]) .konfig-focus-choice label:has(input:checked) {
+    --heo-text: #ffffff;
+    --heo-text-rgb: 255, 255, 255;
+}
+
+/* Kompakter, mit Tab und Leertaste bedienbarer Schalter im Dev-Tools-Dock. */
+.dev-tools-theme-track {
+    position: relative;
+    width: 23px;
+    height: 13px;
+    border: 1px solid currentColor;
+    border-radius: 999px;
+    pointer-events: none;
+}
+
+.dev-tools-theme-track::after {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: currentColor;
+    transition: transform .18s ease;
+}
+
+.dev-tools-theme-switch[aria-checked="true"] .dev-tools-theme-track::after {
+    transform: translateX(10px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .dev-tools-theme-track::after { transition: none; }
+}

@@ -1,0 +1,7 @@
+"/HEO (Linux).sh" text eol=lf
+"/HEO (Windows).bat" text eol=crlf
+/heo/application/*.py text eol=lf
+/heo/application/requirements.txt text eol=lf
+/heo/application/*.sh text eol=lf
+/heo/application/*.ps1 text eol=crlf
+/heo/application/uv.env text eol=lf

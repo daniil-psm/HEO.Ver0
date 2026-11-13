@@ -1,0 +1,7 @@
+.konfig-validation-hints {
+    margin: 8px 0 0;
+    padding-left: 20px;
+    color: inherit;
+    line-height: 1.45;
+}
+.konfig-validation-hints li + li { margin-top: 7px; }
